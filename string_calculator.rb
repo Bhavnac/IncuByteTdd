@@ -24,6 +24,15 @@ class StringCalculator
     [delimiters, number_string]
   end
 
+  def self.parse_custom_delimiters(delimiter_part)
+    # Support multiple delimiters of variable length
+    if delimiter_part.include?('[')
+      delimiter_part.scan(/\[(.*?)\]/).flatten
+    else
+      [delimiter_part]
+    end
+  end
+
   def self.validate_input(numbers)
     # Raise error if input is malformed, such as ending with a delimiter
     raise 'Invalid format' if numbers.empty? || numbers[-1] =~ /[,\n]/
