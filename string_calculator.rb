@@ -4,6 +4,9 @@ class StringCalculator
 
     # Extract delimiter(s) and number string
     delimiters, number_string = extract_delimiters(numbers)
+
+    # Validate for negative or malformed inputs
+    validate_input(number_string)
   end
 
   private
@@ -19,5 +22,10 @@ class StringCalculator
       number_string = numbers
     end
     [delimiters, number_string]
+  end
+
+  def self.validate_input(numbers)
+    # Raise error if input is malformed, such as ending with a delimiter
+    raise 'Invalid format' if numbers.empty? || numbers[-1] =~ /[,\n]/
   end
 end
