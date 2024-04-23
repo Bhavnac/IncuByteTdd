@@ -39,5 +39,11 @@ RSpec.describe StringCalculator do
         expect { StringCalculator.add("1,-2,3,-4") }.to raise_error(RuntimeError, "negative numbers not allowed: -2, -4")
       end
     end
+
+    context "with malformed strings" do
+      it "should ignore invalid parts" do
+        expect { StringCalculator.add("1,\n") }.to raise_error(RuntimeError)
+      end
+    end
   end
 end
