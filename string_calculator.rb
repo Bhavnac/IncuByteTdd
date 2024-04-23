@@ -7,6 +7,10 @@ class StringCalculator
 
     # Validate for negative or malformed inputs
     validate_input(number_string)
+
+    # Split numbers and calculate sum
+    number_list = split_numbers(number_string, delimiters)
+    number_list.sum
   end
 
   private
@@ -30,6 +34,14 @@ class StringCalculator
       delimiter_part.scan(/\[(.*?)\]/).flatten
     else
       [delimiter_part]
+    end
+  end
+
+  def self.split_numbers(numbers, delimiters)
+    delimiter_regex = Regexp.union(delimiters.map { |d| Regexp.escape(d) })
+    numbers.split(delimiter_regex).map(&:to_i).tap do |nums|
+      negatives = nums.select { |n| n < 0 }
+      raise "negative numbers not allowed: #{negatives.join(', ')}" unless negatives.empty?
     end
   end
 
